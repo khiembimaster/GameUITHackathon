@@ -1,5 +1,6 @@
 import Graphics from "./Graphics.js";
 import InputHandler from "./InputHandler.js";
+import Physics from "./Physics.js";
 import {StandingLeft, StandingRight} from './State.js'
 class Game{ // Game is a base class which store what a Game object needed
     constructor(ctx, gameWidth, gameHeight, width, height, x, y){
@@ -10,6 +11,7 @@ class Game{ // Game is a base class which store what a Game object needed
         this.height = height;   //Game object size_height
         this.x = x;             //where we place the image of game object x
         this.y = y;             //where we place the image of game object y
+        this.weight;
     }
 }
 
@@ -19,7 +21,7 @@ export default class Player extends Game{
         //Components => differ from type of Game object
         //A Player would have access to inputs, graphics, physics, stateManger;
         
-        // this.physics = new ;
+        this.physics = new Physics();
         this.states = [new StandingRight(this), new StandingLeft(this)];
         this.curState = this.states[0];
         this.input = new InputHandler();
@@ -75,9 +77,8 @@ export default class Player extends Game{
         ]);
     }
     update(){
-        // console.log(this.input);
         this.curState.handleInput(this.input.lastKey);
-
+        this.physics.update(this);
     }
     draw(){
         this.graphic.draw(this);

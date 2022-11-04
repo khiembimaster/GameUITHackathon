@@ -14,7 +14,7 @@ window.addEventListener('load', function(){
     canvas.height = 1000;
 
     // 5 - Initialize variables
-    const player = new Player(ctx, canvas.width, canvas.height, 200, 181, "playerImage", 0, 0);
+    const player = new Player(ctx, canvas.width, canvas.height, 200, 181, "playerImage", canvas.width*0.5 - 100, canvas.height - 181);
 
     function animate(){
 

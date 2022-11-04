@@ -19,7 +19,6 @@ export default class Graphics{
         });
     }
     draw(game){
-        console.log(game.curState);
         let state = game.curState.state;
         let position = Math.floor(this.gameFrame/this.durationPerImage) % this.spriteAnimations[state].loc.length;
         let frameX = this.spriteAnimations[state].loc[position].x;
