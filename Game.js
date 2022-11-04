@@ -1,7 +1,7 @@
 import Graphics from "./Graphics.js";
 import InputHandler from "./InputHandler.js";
 import Physics from "./Physics.js";
-import {StandingLeft, StandingRight} from './State.js'
+import {FallingLeft, FallingRight, JumpingLeft, JumpingRight, RunningLeft, RunningRight, StandingLeft, StandingRight} from './State.js'
 class Game{ // Game is a base class which store what a Game object needed
     constructor(ctx, gameWidth, gameHeight, width, height, x, y){
         this.ctx = ctx; // Context which stores 2d api for rendering
@@ -22,7 +22,11 @@ export default class Player extends Game{
         //A Player would have access to inputs, graphics, physics, stateManger;
         
         this.physics = new Physics();
-        this.states = [new StandingRight(this), new StandingLeft(this)];
+        this.states = [ 
+                        new StandingRight(this), new StandingLeft(this), new JumpingRight(this), new JumpingLeft(this),
+                        new FallingRight(this), new FallingLeft(this) , new RunningRight(this), new RunningLeft(this),
+                    ];
+
         this.curState = this.states[0];
         this.input = new InputHandler();
         this.graphic = new Graphics(this.width, this.height, imagePath, [
