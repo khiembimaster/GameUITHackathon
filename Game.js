@@ -1,16 +1,27 @@
 import Graphics from "./Graphics.js";
 import InputHandler from "./InputHandler.js";
+import {StandingLeft, StandingRight} from './State.js'
+class Game{ // Game is a base class which store what a Game object needed
+    constructor(ctx, gameWidth, gameHeight, width, height, x, y){
+        this.ctx = ctx; // Context which stores 2d api for rendering
+        this.gameWidth = gameWidth;     //| Game world-width where we place objects, image,...
+        this.gameHeight = gameHeight;   //| Game world-height
+        this.width = width;     //Game object size_width
+        this.height = height;   //Game object size_height
+        this.x = x;             //where we place the image of game object x
+        this.y = y;             //where we place the image of game object y
+    }
+}
 
-export default class Game{
-    constructor(ctx, gameWidth, gameHeight, width, height,  imagePath){
-        this.ctx = ctx;
-        this.gameWidth = gameWidth;
-        this.gameHeight = gameHeight; 
-        this.width = width;
-        this.height = height;
-        this.x = 0;
-        this.y = 0;
-        //Components
+export default class Player extends Game{
+    constructor(ctx, gameWidth, gameHeight, width, height,  imagePath, x, y){
+        super(ctx, gameWidth, gameHeight, width, height, x, y); // init base class
+        //Components => differ from type of Game object
+        //A Player would have access to inputs, graphics, physics, stateManger;
+        
+        // this.physics = new ;
+        this.states = [new StandingRight(this), new StandingLeft(this)];
+        this.curState = this.states[0];
         this.input = new InputHandler();
         this.graphic = new Graphics(this.width, this.height, imagePath, [
             {
@@ -46,11 +57,11 @@ export default class Game{
                 frames : 9
             },
             {   
-                name : "SHITTING RIGHT",
+                name : "SITTING RIGHT",
                 frames : 5
             },
             {   
-                name : "SHITTING LEFT",
+                name : "SITTING LEFT",
                 frames : 5
             },
             {   
@@ -62,13 +73,16 @@ export default class Game{
                 frames : 7
             },
         ]);
-        // this.physics = new ;
     }
     update(){
-        this.graphic.update('STANDING LEFT');
+        // console.log(this.input);
+        this.curState.handleInput(this.input.lastKey);
+
     }
     draw(){
         this.graphic.draw(this);
     }
-
+    setState(stateIndex){
+        this.curState = this.states[stateIndex];
+    }
 }

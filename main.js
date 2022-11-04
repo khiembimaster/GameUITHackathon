@@ -1,5 +1,5 @@
 // 1 - Import packages
-import Game from './Game.js';
+import Player from './Game.js';
 // 2 - Define constants
 
 // 3 - Initialize the world
@@ -10,19 +10,19 @@ import Game from './Game.js';
 window.addEventListener('load', function(){
     const canvas = document.getElementById("canvas1");
     const ctx = canvas.getContext('2d'); 
-    canvas.width = 800;
-    canvas.height = 720;
+    canvas.width = 1000;
+    canvas.height = 1000;
 
     // 5 - Initialize variables
-    const game = new Game(ctx, canvas.width, canvas.height, 200, 181, "playerImage");
+    const player = new Player(ctx, canvas.width, canvas.height, 200, 181, "playerImage", 0, 0);
 
     function animate(){
 
-        game.update();
+        player.update();
         
         ctx.clearRect(0,0,canvas.width,canvas.height);
 
-        game.draw();
+        player.draw();
 
         requestAnimationFrame(animate);
     }

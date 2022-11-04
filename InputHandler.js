@@ -1,31 +1,63 @@
 export default class InputHandler {
     constructor(){
-        this.keys = [];
+        this.lastKey = '';
         window.addEventListener('keydown', (e) =>{
-            if((    e.key === 'ArrowDown' || 
-                    e.key === 'ArrowUp' ||
-                    e.key === 'ArrowLeft' ||
-                    e.key === 'ArrowRight' ||
-                    e.key === 'A' ||
-                    e.key === 'S' ||
-                    e.key === 'D' ||
-                    e.key === 'W' )
-                    && this.keys.indexOf(e.key) === -1){
-                this.keys.push(e.key);
+            switch(e.key){
+                case 'ArrowDown':
+                    this.lastKey = 'PRESS down';
+                    break;
+                case 'ArrowUp':
+                    this.lastKey = 'PRESS up';
+                    break;
+                case 'ArrowLeft':
+                    this.lastKey = 'PRESS left';
+                    break;
+                case 'ArrowRight':
+                    this.lastKey = 'PRESS right';
+                    break;
+                case 'A':
+                    this.lastKey = 'PRESS left';
+                    break;
+                case 'S':
+                    this.lastKey = 'PRESS down';
+                    break;
+                case 'D':
+                    this.lastKey = 'PRESS right';
+                    break;
+                case 'W':
+                    this.lastKey = 'PRESS up';
+                    break;
             }
+            // console.log(this.lastKey);
         });
         window.addEventListener('keyup', (e) =>{
-            if((    e.key === 'ArrowDown' || 
-                    e.key === 'ArrowUp' ||
-                    e.key === 'ArrowLeft' ||
-                    e.key === 'ArrowRight' ||
-                    e.key === 'A' ||
-                    e.key === 'S' ||
-                    e.key === 'D' ||
-                    e.key === 'W' )
-                    && this.keys.indexOf(e.key) === -1){
-                this.keys.splice(this.keys.indexOf(e.key),1);
+            switch(e.key){
+                case 'ArrowDown':
+                    this.lastKey = 'RELEASE down';
+                    break;
+                case 'ArrowUp':
+                    this.lastKey = 'RELEASE up';
+                    break;
+                case 'ArrowLeft':
+                    this.lastKey = 'RELEASE left';
+                    break;
+                case 'ArrowRight':
+                    this.lastKey = 'RELEASE right';
+                    break;
+                case 'A':
+                    this.lastKey = 'RELEASE left';
+                    break;
+                case 'S':
+                    this.lastKey = 'RELEASE down';
+                    break;
+                case 'D':
+                    this.lastKey = 'RELEASE right';
+                    break;
+                case 'W':
+                    this.lastKey = 'RELEASE up';
+                    break;
             }
+            // console.log(this.lastKey);
         });
     }
 }
