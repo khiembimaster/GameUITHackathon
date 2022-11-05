@@ -23,12 +23,20 @@ export class StandingRight extends State{
     constructor(player){
         super('STANDING RIGHT');
         this.player = player;
+        this.player.vx = 0;
     }
-
     handleInput(input){
-        if (input === 'PRESS right') this.player.setState(states.RUNNING_RIGHT);
-        else if (input === 'PRESS left') this.player.setState(states.STANDING_LEFT);
-        else this.player.physics.vx = 0;
+        input.keys.forEach(element => {
+            if (element === 'ArrowLeftDOWN') {
+                this.player.setState(states.STANDING_LEFT);  
+            }
+            if (element === 'ArrowRightDOWN') {
+                this.player.setState(states.RUNNING_RIGHT);    
+            }
+            if (element === ' DOWN') 
+                this.player.setState(states.JUMPING_RIGHT);
+            input.keys.shift();
+        }); 
     }
 } 
 
@@ -36,57 +44,77 @@ export class StandingLeft extends State{
     constructor(player){
         super('STANDING LEFT');
         this.player = player;
+        this.player.vx = 0;
     }
     handleInput(input){
-        if (input === 'PRESS left') this.player.setState(states.RUNNING_LEFT);
-        else if (input === 'PRESS right') this.player.setState(states.STANDING_RIGHT);
+        input.keys.forEach(element => {
+            if (element === 'ArrowRightDOWN') {
+                this.player.setState(states.STANDING_RIGHT);  
+            }
+            if (element === 'ArrowLeftDOWN') {
+                this.player.setState(states.RUNNING_LEFT);    
+            }
+            if (element === ' DOWN') 
+                this.player.setState(states.JUMPING_LEFT);
+            input.keys.shift();
+        }); 
     }
 } 
-
-
-export class JumpingLeft extends State{
-    constructor(player){
-        super('JUMPING LEFT');
-        this.player = player;
-    }
-}
 
 export class JumpingRight extends State{
     constructor(player){
         super('JUMPING RIGHT');
         this.player = player;
+        // this.player.vx = -10;
+    }
+    handleInput(input){
+        input.keys.forEach(element => {
+            // if (element === 'ArrowRightDOWN')
+            //     this.player.setState(states.RUNNING_RIGHT);  
+            // if (element === ' UP') 
+                
+            input.keys.shift();
+        }); 
+        this.player.setState(states.FALLING_RIGHT);
     }
 }
-
+export class JumpingLeft extends State{
+    constructor(player){
+        super('JUMPING LEFT');
+        this.player = player;
+        // this.player.vx = -10;
+    }
+    handleInput(input){
+        input.keys.forEach(element => {
+            // if (element === ' UP') 
+            input.keys.shift();
+        }); 
+        this.player.setState(states.FALLING_LEFT);
+    }   
+}
 export class FallingRight extends State{
     constructor(player){
         super('FALLING RIGHT');
         this.player = player;
-    }
-}
-
-export class FallingLeft extends State{
-    constructor(player){
-        super('FALLING LEFT');
-        this.player = player;
-    }
-}
-
-export class RunningRight extends State{
-    constructor(player){
-        super('RUNNING RIGHT');
-        this.player = player;
+        // this.player.vx = -10;
     }
     handleInput(input){
-        switch (input){
-            case 'PRESS right':
-                this.player.physics.vx = 1;
-                break;
-            case 'RELEASE right':
-                this.player.physics.vx = 0;
-                this.player.setState(states.STANDING_RIGHT);
-                break;
-        }
+        // input.keys.forEach(element => {
+            
+        // }); 
+        // this.player.setState(states.STANDING_RIGHT);
+    }
+}
+export class FallingLeft extends State{
+    constructor(player){
+        super('JUMPING LEFT');
+        this.player = player;
+        // this.player.vx = -10;
+    }
+    handleInput(input){
+        input.keys.forEach(element => {
+     
+        }); 
     }
 }
 
@@ -94,16 +122,38 @@ export class RunningLeft extends State{
     constructor(player){
         super('RUNNING LEFT');
         this.player = player;
+        this.player.vx = -10;
     }
     handleInput(input){
-        switch (input){
-            case 'PRESS left':
-                this.player.physics.vx = -1;
-                break;
-            case 'RELEASE left':
-                this.player.physics.vx = 0;
+        input.keys.forEach(element => {
+            if (element === 'ArrowRightDOWN')
+                this.player.setState(states.RUNNING_RIGHT);  
+            if (element === 'ArrowLeftUP') 
                 this.player.setState(states.STANDING_LEFT);
-                break;
-        }
+            if (element === ' DOWN') 
+                this.player.setState(states.JUMPING_LEFT);
+            input.keys.shift();
+        }); 
     }
-}
+} 
+
+export class RunningRight extends State{
+    constructor(player){
+        super('RUNNING RIGHT');
+        this.player = player;
+        this.player.vx = 10;
+    }
+    handleInput(input){
+        input.keys.forEach(element => {
+            if (element === 'ArrowLeftDOWN')
+                this.player.setState(states.RUNNING_LEFT);  
+            if (element === 'ArrowRightUP') 
+                this.player.setState(states.STANDING_RIGHT);
+            if (element === ' DOWN') 
+                this.player.setState(states.JUMPING_RIGHT);
+            input.keys.shift();
+        }); 
+    }
+} 
+
+

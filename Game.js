@@ -3,33 +3,35 @@ import InputHandler from "./InputHandler.js";
 import Physics from "./Physics.js";
 import {FallingLeft, FallingRight, JumpingLeft, JumpingRight, RunningLeft, RunningRight, StandingLeft, StandingRight} from './State.js'
 class Game{ // Game is a base class which store what a Game object needed
-    constructor(ctx, gameWidth, gameHeight, width, height, x, y){
+    constructor(ctx, width, height){
         this.ctx = ctx; // Context which stores 2d api for rendering
-        this.gameWidth = gameWidth;     //| Game world-width where we place objects, image,...
-        this.gameHeight = gameHeight;   //| Game world-height
         this.width = width;     //Game object size_width
         this.height = height;   //Game object size_height
-        this.x = x;             //where we place the image of game object x
-        this.y = y;             //where we place the image of game object y
-        this.weight;
     }
 }
 
 export default class Player extends Game{
-    constructor(ctx, gameWidth, gameHeight, width, height,  imagePath, x, y){
-        super(ctx, gameWidth, gameHeight, width, height, x, y); // init base class
+    constructor(ctx){
+        super(ctx, 200, 181); // init base class
         //Components => differ from type of Game object
         //A Player would have access to inputs, graphics, physics, stateManger;
-        
+        this.vx = 0;
+        this.vy = 0;
         this.physics = new Physics();
         this.states = [ 
-                        new StandingRight(this), new StandingLeft(this), new JumpingRight(this), new JumpingLeft(this),
-                        new FallingRight(this), new FallingLeft(this) , new RunningRight(this), new RunningLeft(this),
+                        new StandingRight(this),
+                        new StandingLeft(this),
+                        new JumpingRight(this),
+                        new JumpingLeft(this),
+                        new FallingRight(this),
+                        new FallingLeft(this),
+                        new RunningRight(this),
+                        new RunningLeft(this),
                     ];
 
         this.curState = this.states[0];
         this.input = new InputHandler();
-        this.graphic = new Graphics(this.width, this.height, imagePath, [
+        this.graphic = new Graphics(this.width, this.height, "playerImage", [
             {
                 name : "STANDING RIGHT",
                 frames : 7
@@ -81,8 +83,8 @@ export default class Player extends Game{
         ]);
     }
     update(){
-        this.curState.handleInput(this.input.lastKey);
-        this.physics.update(this);
+        this.curState.handleInput(this.input);
+        // this.physics.update(this);
     }
     draw(){
         this.graphic.draw(this);

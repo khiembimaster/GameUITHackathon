@@ -1,4 +1,4 @@
-import { states } from "./State.js";
+import { window } from "./Constants.js";
 export default class Graphics{
     constructor(spriteWidth, spriteHeight, imagePath, animationStates){
         this.image = new Image();
@@ -23,8 +23,15 @@ export default class Graphics{
         let position = Math.floor(this.gameFrame/this.durationPerImage) % this.spriteAnimations[state].loc.length;
         let frameX = this.spriteAnimations[state].loc[position].x;
         let frameY = this.spriteAnimations[state].loc[position].y;
-        // console.log(game);
-        game.ctx.drawImage(this.image, frameX, frameY, game.width, game.height , game.x, game.y, game.gameWidth*0.2, game.gameHeight*0.2);
+        
+        // game.ctx.fillRect()
+        game.ctx.drawImage(
+            this.image, frameX, frameY, 
+            game.width, game.height ,
+            0.5*(window.WINDOW_WIDTH - game.width), 
+            window.WINDOW_HEIGHT - game.height, 
+            window.WINDOW_WIDTH*0.2, window.WINDOW_HEIGHT*0.2);
+        
         this.gameFrame++;
     }
 
