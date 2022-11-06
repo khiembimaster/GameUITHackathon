@@ -66,16 +66,19 @@ export class JumpingRight extends State{
         super('JUMPING RIGHT');
         this.player = player;
         // this.player.vx = -10;
+        this.timeStamp = 100;
     }
     handleInput(input){
         input.keys.forEach(element => {
-            // if (element === 'ArrowRightDOWN')
-            //     this.player.setState(states.RUNNING_RIGHT);  
-            // if (element === ' UP') 
-                
+            
             input.keys.shift();
         }); 
-        this.player.setState(states.FALLING_RIGHT);
+        if(this.timeStamp >= 0){
+            this.timeStamp--;
+        }else {
+            this.player.setState(states.FALLING_RIGHT);
+            this.timeStamp = 100;
+        }
     }
 }
 export class JumpingLeft extends State{
@@ -83,13 +86,20 @@ export class JumpingLeft extends State{
         super('JUMPING LEFT');
         this.player = player;
         // this.player.vx = -10;
+        this.timeStamp = 100;
     }
     handleInput(input){
         input.keys.forEach(element => {
             // if (element === ' UP') 
             input.keys.shift();
         }); 
-        this.player.setState(states.FALLING_LEFT);
+        if(this.timeStamp >= 0){
+            this.timeStamp--;
+        }
+        else {
+            this.player.setState(states.FALLING_LEFT);
+            this.timeStamp = 100;
+        }
     }   
 }
 export class FallingRight extends State{
@@ -97,24 +107,37 @@ export class FallingRight extends State{
         super('FALLING RIGHT');
         this.player = player;
         // this.player.vx = -10;
+        this.timeStamp = 100;
     }
     handleInput(input){
-        // input.keys.forEach(element => {
-            
-        // }); 
-        // this.player.setState(states.STANDING_RIGHT);
+        input.keys.forEach(element => {
+            input.keys.shift();
+        }); 
+        if(this.timeStamp >= 0)
+            this.timeStamp--;
+        else {
+            this.player.setState(states.STANDING_RIGHT);
+            this.timeStamp = 100;
+        }
     }
 }
 export class FallingLeft extends State{
     constructor(player){
-        super('JUMPING LEFT');
+        super('FALLING LEFT');
         this.player = player;
         // this.player.vx = -10;
+        this.timeStamp = 100;
     }
     handleInput(input){
         input.keys.forEach(element => {
-     
+            input.keys.shift();
         }); 
+        if(this.timeStamp >= 0)
+            this.timeStamp--;
+        else { 
+            this.player.setState(states.STANDING_LEFT);
+            this.timeStamp = 100;
+        }
     }
 }
 
