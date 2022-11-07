@@ -1,22 +1,29 @@
+import { window } from "./Constants.js";
 export default class Physics{
     constructor(){
-        this.vx = 0;
-        this.vy = 0;
+        // this.vx = 0;
+        // this.vy = 0;
     }
     update(game){
-        // if(game.curState.state == Fall) 
-        // if((!this.onGround(game))) this.vy += game.weight;
-        // // else if(this.onGround(game)) this.vy = 0;
-        // game.x += this.vx;      
-        // game.y += this.vy; 
 
-        // // if(this.vx > 0) this.vx--;
-        // // if(this.vx < 0) this.vx++;
+        let isOnGround = this.onGround(game);
+        if(game.curState.state === 'FALLING LEFT' || game.curState.state === 'FALLING RIGHT' ){
+            if(isOnGround){
+                game.vy = 0;
+                // game.vx = 1;
+            }
+        }
+        
+        if(!isOnGround)game.vy += 1;
+        game.y += game.vy;
+        game.x += game.vx;
+
     }
 
     onGround(game){
-        if(game.gameHeight === (game.y + game.height)){
+        if(window.WINDOW_HEIGHT === (game.y + game.height)){
             return true;
         }
+        else return false;
     }
 }

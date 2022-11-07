@@ -7,7 +7,7 @@ export const scenes =
 
 export const window = 
 {
-    WINDOW_WIDTH  : 1000,
-    WINDOW_HEIGHT : 1000,
+    WINDOW_WIDTH  : 2400,
+    WINDOW_HEIGHT : 700,
     GROUND_HEIGHT : 20,
 }

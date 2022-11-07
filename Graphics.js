@@ -27,10 +27,9 @@ export default class Graphics{
         // game.ctx.fillRect()
         game.ctx.drawImage(
             this.image, frameX, frameY, 
-            game.width, game.height ,
-            0.5*(window.WINDOW_WIDTH - game.width), 
-            window.WINDOW_HEIGHT - game.height, 
-            window.WINDOW_WIDTH*0.2, window.WINDOW_HEIGHT*0.2);
+            game.width, game.height,
+            game.x, game.y, 
+            game.width, game.height);
         
         this.gameFrame++;
     }
