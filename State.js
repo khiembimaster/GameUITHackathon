@@ -82,7 +82,7 @@ export class JumpingRight extends State{
     handleInput(input){
         input.keys.forEach(element => {
             
-            input.keys.shift();
+            // input.keys.shift();
         }); 
         if(this.player.vy === 0)
             this.player.setState(states.FALLING_RIGHT);
@@ -100,7 +100,7 @@ export class JumpingLeft extends State{
     handleInput(input){
         input.keys.forEach(element => {
             // if (element === ' UP') 
-            input.keys.shift();
+            // input.keys.shift();
         }); 
         if(this.player.vy === 0)
             this.player.setState(states.FALLING_LEFT);

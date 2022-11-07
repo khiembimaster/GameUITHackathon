@@ -17,6 +17,8 @@ export default class Physics{
         if(!isOnGround)game.vy += 1;
         game.y += game.vy;
         game.x += game.vx;
+        
+        // if (game.x > window.WINDOW_HEIGHT
 
     }
 
