@@ -1,4 +1,3 @@
-import { window } from "./Constants.js";
 export default class Graphics{
     constructor(spriteWidth, spriteHeight, imagePath, animationStates){
         this.image = new Image();

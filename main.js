@@ -1,6 +1,7 @@
 // 1 - Import packages
 import Player from './Game.js';
-import ParallaxBackground from './Background.js'
+import {WINDOW} from './Constants.js';
+// import ParallaxBackground from './Background.js'
 // 2 - Define constants
 
 // 3 - Initialize the world
@@ -11,8 +12,8 @@ import ParallaxBackground from './Background.js'
 window.addEventListener('load', function(){
     const canvas = document.getElementById("canvas1");
     const ctx = canvas.getContext('2d'); 
-    canvas.width = 2400;
-    canvas.height = 700;
+    canvas.width = WINDOW.WINDOW_WIDTH;
+    canvas.height = WINDOW.WINDOW_HEIGHT;
 
     // 5 - Initialize variables
     const player = new Player(ctx);

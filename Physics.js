@@ -1,4 +1,4 @@
-import { window } from "./Constants.js";
+import { WINDOW } from "./Constants.js";
 export default class Physics{
     constructor(){
         // this.vx = 0;
@@ -18,12 +18,12 @@ export default class Physics{
         game.y += game.vy;
         game.x += game.vx;
         
-        // if (game.x > window.WINDOW_HEIGHT
+        // if (game.x > WINDOW.WINDOW_HEIGHT
 
     }
 
     onGround(game){
-        if(window.WINDOW_HEIGHT === (game.y + game.height)){
+        if(WINDOW.WINDOW_HEIGHT === (game.y + game.height)){
             return true;
         }
         else return false;

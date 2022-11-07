@@ -5,7 +5,7 @@ export const scenes =
     SCENCE_C : 'scene C'
 }
 
-export const window = 
+export const WINDOW = 
 {
     WINDOW_WIDTH  : 2400,
     WINDOW_HEIGHT : 700,
