@@ -1,6 +1,5 @@
 class Layer{
     constructor(ctx, image, speedModifier){
-        this.gameSpeed = 5;
         this.ctx = ctx;
         this.x = 0;
         this.y = 0;
@@ -8,15 +7,14 @@ class Layer{
         this.height = 700;
         this.image = image;
         this.speedModifier = speedModifier;
-        this.speed = gameSpeed * this.speedModifier;
+        this.speed = 5 * this.speedModifier;
     }
-    update(){
-        this.speed = (gameSpeed * this.speedModifier);
-        if(this.x <= -this.width){
-            this.x = 0;
-        }
-        this.x = this.x - this.speed;
-        // this.x = -((gameFrame* this.speed % this.width) );
+    update(game){
+        // this.speed = (5 * this.speedModifier);
+        // if(this.x <= -this.width){
+        //     this.x = 0;
+        // }
+        this.x = this.x - game.vx*this.speed*0.1;
     }
     draw(){
         this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
@@ -35,21 +33,21 @@ export default class ParallaxBackground{
         const backgroundLayer4 = document.getElementById('background-4');
         const backgroundLayer5 = document.getElementById('background-5');
 
-        const layer1 = new Layer(backgroundLayer1, 0.2);
+        const layer1 = new Layer(ctx, backgroundLayer1, 0.2);
         this.layers.push(layer1);
-        const layer2 = new Layer(backgroundLayer2, 0.4);
-        this.layers(layer2);
-        const layer3 = new Layer(backgroundLayer3, 0.6);
-        this.layers(layer3);
-        const layer4 = new Layer(backgroundLayer4, 0.8);
-        this.layers(layer4);
-        const layer5 = new Layer(backgroundLayer5, 1);
-        this.layers(layer5);
+        const layer2 = new Layer(ctx, backgroundLayer2, 0.4);
+        this.layers.push(layer2);
+        const layer3 = new Layer(ctx, backgroundLayer3, 0.6);
+        this.layers.push(layer3);
+        const layer4 = new Layer(ctx, backgroundLayer4, 0.8);
+        this.layers.push(layer4);
+        const layer5 = new Layer(ctx, backgroundLayer5, 1);
+        this.layers.push(layer5);
     }
 
-    updateAll(){
+    updateAll(game){
         this.layers.forEach(element => {
-            element.update();
+            element.update(game);
         });
     }
 

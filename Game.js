@@ -18,6 +18,7 @@ export default class Player extends Game{
         //A Player would have access to inputs, graphics, physics, stateManger;
         this.vx = 0;
         this.vy = 0;
+        this.weight = 5;
         this.x = WINDOW.WINDOW_WIDTH*0.5;
         this.y = WINDOW.WINDOW_HEIGHT - this.height;
         this.physics = new Physics();
@@ -95,5 +96,11 @@ export default class Player extends Game{
     setState(stateIndex){
         this.curState = this.states[stateIndex];
         this.curState.enter();
+    }
+    onGround(){
+        if(WINDOW.WINDOW_HEIGHT <= (this.y + this.height)){
+            return true;
+        }
+        else return false;
     }
 }

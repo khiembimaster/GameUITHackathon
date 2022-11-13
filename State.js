@@ -27,11 +27,11 @@ export class StandingRight extends State{
     handleInput(input){
         input.keys.forEach(element => {
             switch(element){
-                case 'ArrowLeftDOWN': 
-                    this.player.setState(states.STANDING_LEFT);
-                    break;
                 case 'ArrowRightDOWN':
                     this.player.setState(states.RUNNING_RIGHT);
+                    break;
+                case 'ArrowLeftDOWN': 
+                    this.player.setState(states.RUNNING_LEFT);
                     break;
                 case ' DOWN':
                     this.player.setState(states.JUMPING_RIGHT);
@@ -55,7 +55,7 @@ export class StandingLeft extends State{
         input.keys.forEach(element => {
             switch(element){
                 case 'ArrowRightDOWN': 
-                    this.player.setState(states.STANDING_RIGHT);
+                    this.player.setState(states.RUNNING_RIGHT);
                     break;
                 case 'ArrowLeftDOWN':
                     this.player.setState(states.RUNNING_LEFT);
@@ -77,18 +77,15 @@ export class JumpingRight extends State{
     constructor(player){
         super('JUMPING RIGHT');
         this.player = player;
-        this.timeStamp = 100;
     }
     handleInput(input){
-        input.keys.forEach(element => {
-            
-            // input.keys.shift();
-        }); 
-        if(this.player.vy === 0)
+        if(this.player.vy > this.player.weight)
             this.player.setState(states.FALLING_RIGHT);
     }
     enter(){
-        this.player.vy = -20;
+        // console.log(this.player.onGround());
+        if(this.player.onGround())
+            this.player.vy = -20;
     }
 }
 export class JumpingLeft extends State{
@@ -98,15 +95,12 @@ export class JumpingLeft extends State{
         
     }
     handleInput(input){
-        input.keys.forEach(element => {
-            // if (element === ' UP') 
-            // input.keys.shift();
-        }); 
-        if(this.player.vy === 0)
+        if(this.player.vy > this.player.weight)
             this.player.setState(states.FALLING_LEFT);
     }   
     enter(){
-        this.player.vy = -20;
+        if(this.player.onGround())
+            this.player.vy = -20;
     }
 }
 export class FallingRight extends State{
@@ -115,18 +109,16 @@ export class FallingRight extends State{
         this.player = player;
     }
     handleInput(input){
-        input.keys.forEach(element => {
-            // if(element === 'ArrowRightDOWN') this.player.vx = 20;
-            // else if(element === 'ArrowRightUP') this.player.vx = 0;
-            // input.keys.shift();
-        }); 
-        if(this.player.vy === 0){
+        // input.keys.forEach(element => {
+        //     //Can detect double jump
+        // }); 
+        if(this.player.onGround()){
             if(this.player.vx === 0) this.player.setState(states.STANDING_RIGHT);
             else this.player.setState(states.RUNNING_RIGHT);
         }
     }
     enter(){
-        // this.player.vy = 5;
+        this.player.vy = 1;
     }
 }
 export class FallingLeft extends State{
@@ -135,19 +127,17 @@ export class FallingLeft extends State{
         this.player = player;
     }
     handleInput(input){
-        input.keys.forEach(element => {
-            // if(element === 'ArrowLeftDOWN') this.player.vx = -20;
-            // else if(element === 'ArrowLeftUP') this.player.vx = 0;
-            // input.keys.shift();
-        }); 
-        if(this.player.vy === 0){
+        // input.keys.forEach(element => {
+        //     // Can detect double jump
+        // }); 
+        if(this.player.onGround()){
             if(this.player.vx === 0) this.player.setState(states.STANDING_LEFT);
             else this.player.setState(states.RUNNING_LEFT);
         }
             
     }
     enter(){
-        // this.player.vy = 5;
+        this.player.vy = 1;
     }
 }
 
@@ -176,6 +166,7 @@ export class RunningLeft extends State{
     }
     enter(){
         this.player.vx = -10;
+        this.player.vy = 0;
     }
 } 
 
@@ -202,6 +193,7 @@ export class RunningRight extends State{
     }
     enter(){
         this.player.vx = 10;
+        this.player.vy = 0;
     }
 } 
 
