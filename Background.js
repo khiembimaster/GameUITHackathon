@@ -17,7 +17,7 @@ class Layer{
             this.x = 0;
         }
         this.x = this.x - game.vx*this.speed*0.15;
-        this.y = this.y - game.vy;
+        this.y = this.y - game.vy*this.speed*0.05;
     }
     draw(){
         this.ctx.drawImage(this.image, this.x - this.width, this.y, this.width, this.height);

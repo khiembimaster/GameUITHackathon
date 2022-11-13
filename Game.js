@@ -1,4 +1,5 @@
 import Graphics from "./Graphics.js";
+import ParallaxBackground from "./Background.js";
 import InputHandler from "./InputHandler.js";
 import Physics from "./Physics.js";
 import {WINDOW} from './Constants.js';
@@ -21,6 +22,7 @@ export default class Player extends Game{
         this.weight = 5;
         this.x = WINDOW.WINDOW_WIDTH*0.5;
         this.y = WINDOW.WINDOW_HEIGHT - this.height - WINDOW.GROUND_HEIGHT;
+        this.background = new ParallaxBackground(ctx);
         this.physics = new Physics();
         this.states = [ 
                         new StandingRight(this),
@@ -87,10 +89,13 @@ export default class Player extends Game{
         ]);
     }
     update(){
+        this.background.updateAll(this);
         this.curState.handleInput(this.input);
         this.physics.update(this);
+        
     }
     draw(){
+        this.background.drawAll(this);
         this.graphic.draw(this);
     }
     setState(stateIndex){

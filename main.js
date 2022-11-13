@@ -1,7 +1,7 @@
 // 1 - Import packages
 import Player from './Game.js';
 import {WINDOW} from './Constants.js';
-import ParallaxBackground from './Background.js';
+
 // import ParallaxBackground from './Background.js'
 // 2 - Define constants
 
@@ -18,15 +18,12 @@ window.addEventListener('load', function(){
 
     // 5 - Initialize variables
     const player = new Player(ctx);
-    const background = new ParallaxBackground(ctx);
     function animate(){
         
-        background.updateAll(player);
         player.update();
         
         ctx.clearRect(0,0,canvas.width,canvas.height);
 
-        background.drawAll();
         player.draw();
         
         requestAnimationFrame(animate);
