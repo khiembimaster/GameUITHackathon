@@ -9,5 +9,5 @@ export const WINDOW =
 {
     WINDOW_WIDTH  : 2400,
     WINDOW_HEIGHT : 700,
-    GROUND_HEIGHT : 20,
+    GROUND_HEIGHT : 100,
 }

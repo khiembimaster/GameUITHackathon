@@ -20,7 +20,7 @@ export default class Player extends Game{
         this.vy = 0;
         this.weight = 5;
         this.x = WINDOW.WINDOW_WIDTH*0.5;
-        this.y = WINDOW.WINDOW_HEIGHT - this.height;
+        this.y = WINDOW.WINDOW_HEIGHT - this.height - WINDOW.GROUND_HEIGHT;
         this.physics = new Physics();
         this.states = [ 
                         new StandingRight(this),
@@ -98,7 +98,7 @@ export default class Player extends Game{
         this.curState.enter();
     }
     onGround(){
-        if(WINDOW.WINDOW_HEIGHT <= (this.y + this.height)){
+        if(WINDOW.WINDOW_HEIGHT - WINDOW.GROUND_HEIGHT <= (this.y + this.height)){
             return true;
         }
         else return false;
