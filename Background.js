@@ -11,12 +11,16 @@ class Layer{
     }
     update(game){
         // this.speed = (5 * this.speedModifier);
-        // if(this.x <= -this.width){
-        //     this.x = 0;
-        // }
-        this.x = this.x - game.vx*this.speed*0.1;
+        if(this.x <= -this.width){
+            this.x = 0;
+        }if(this.x >= this.width){
+            this.x = 0;
+        }
+        this.x = this.x - game.vx*this.speed*0.15;
+        this.y = this.y - game.vy;
     }
     draw(){
+        this.ctx.drawImage(this.image, this.x - this.width, this.y, this.width, this.height);
         this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         this.ctx.drawImage(this.image, this.x + this.width, this.y, this.width, this.height);
     }

@@ -6,7 +6,7 @@ export default class Physics{
     }
     update(game){
         
-        if(!game.onGround()) game.vy += 0.5;
+        if(!game.onGround()) game.vy += 1;
 
         game.y += game.vy;
 
