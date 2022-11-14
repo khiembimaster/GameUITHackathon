@@ -109,6 +109,7 @@ export class FallingRight extends State{
     constructor(player){
         super('FALLING RIGHT');
         this.player = player;
+        this.doubleJump = true;
     }
     handleInput(input){
         input.keys.forEach(element => {
@@ -119,13 +120,17 @@ export class FallingRight extends State{
                     this.player.vx = 0.9;
                     break;
                 case ' DOWN':
-                    this.player.vy -=30;
-                    this.player.setState(states.JUMPING_RIGHT);
+                    if(this.doubleJump) {
+                        this.player.vy -=30;
+                        this.doubleJump = false;
+                        this.player.setState(states.JUMPING_RIGHT);
+                    }
                     break;
             }
             input.keys.shift();
         }); 
         if(this.player.onGround()){
+            this.doubleJump = true;
             if(Math.floor(this.player.vx) === 0) this.player.setState(states.STANDING_RIGHT);
             else this.player.setState(states.RUNNING_RIGHT);
         }
@@ -140,6 +145,7 @@ export class FallingLeft extends State{
     constructor(player){
         super('FALLING LEFT');
         this.player = player;
+        this.doubleJump = true;
     }
     handleInput(input){
         input.keys.forEach(element => {
@@ -150,14 +156,17 @@ export class FallingLeft extends State{
                     this.player.vx = -0.9;
                     break;
                 case ' DOWN':
-                    console.log("double jump");
-                    this.player.vy -=30;
-                    this.player.setState(states.JUMPING_LEFT);
+                    if(this.doubleJump){
+                        this.doubleJump = false;
+                        this.player.vy -=30;
+                        this.player.setState(states.JUMPING_LEFT);
+                    }
                     break;
             }
             input.keys.shift();
         }); 
         if(this.player.onGround()){
+            this.doubleJump = true;
             if(Math.floor(Math.abs(this.player.vx)) === 0) this.player.setState(states.STANDING_LEFT);
             else this.player.setState(states.RUNNING_LEFT);
         }
