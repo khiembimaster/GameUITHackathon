@@ -115,12 +115,14 @@ export class FallingRight extends State{
         //     //Can detect double jump
         // }); 
         if(this.player.onGround()){
-            if(this.player.vx === 0) this.player.setState(states.STANDING_RIGHT);
+            if(Math.floor(this.player.vx) === 0) this.player.setState(states.STANDING_RIGHT);
             else this.player.setState(states.RUNNING_RIGHT);
         }
+
+        this.player.vy *= 0.9;
     }
     enter(){
-        this.player.vy = 1;
+        // this.player.vy = 1;
     }
 }
 export class FallingLeft extends State{
@@ -133,13 +135,13 @@ export class FallingLeft extends State{
         //     // Can detect double jump
         // }); 
         if(this.player.onGround()){
-            if(this.player.vx === 0) this.player.setState(states.STANDING_LEFT);
+            if(Math.floor(Math.abs(this.player.vx)) === 0) this.player.setState(states.STANDING_LEFT);
             else this.player.setState(states.RUNNING_LEFT);
         }
-            
+        this.player.vy *= 0.9;
     }
     enter(){
-        this.player.vy = 1;
+        // this.player.vy = 1;
     }
 }
 
