@@ -19,7 +19,7 @@ export default class Player extends Game{
         //A Player would have access to inputs, graphics, physics, stateManger;
         this.vx = 0;
         this.vy = 0;
-        this.weight = 5;
+        this.weight = 1;
         this.x = WINDOW.WINDOW_WIDTH*0.5;
         this.y = WINDOW.WINDOW_HEIGHT - this.height - WINDOW.GROUND_HEIGHT;
         this.background = new ParallaxBackground(ctx);

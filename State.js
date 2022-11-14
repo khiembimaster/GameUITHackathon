@@ -86,8 +86,8 @@ export class JumpingRight extends State{
     }
     enter(){
         // console.log(this.player.onGround());
-        if(this.player.onGround())
-            this.player.vy = -20;
+        // if(this.player.onGround())
+            this.player.vy -= 25;
     }
 }
 export class JumpingLeft extends State{
@@ -101,8 +101,8 @@ export class JumpingLeft extends State{
             this.player.setState(states.FALLING_LEFT);
     }   
     enter(){
-        if(this.player.onGround())
-            this.player.vy = -20;
+        // if(this.player.onGround())
+            this.player.vy -= 25;
     }
 }
 export class FallingRight extends State{
@@ -111,9 +111,20 @@ export class FallingRight extends State{
         this.player = player;
     }
     handleInput(input){
-        // input.keys.forEach(element => {
-        //     //Can detect double jump
-        // }); 
+        input.keys.forEach(element => {
+            //Can detect double jump
+            switch(element){
+                case 'ArrowRightUP':
+                    // console.log(true);
+                    this.player.vx = 0.9;
+                    break;
+                case ' DOWN':
+                    this.player.vy -=30;
+                    this.player.setState(states.JUMPING_RIGHT);
+                    break;
+            }
+            input.keys.shift();
+        }); 
         if(this.player.onGround()){
             if(Math.floor(this.player.vx) === 0) this.player.setState(states.STANDING_RIGHT);
             else this.player.setState(states.RUNNING_RIGHT);
@@ -131,9 +142,21 @@ export class FallingLeft extends State{
         this.player = player;
     }
     handleInput(input){
-        // input.keys.forEach(element => {
-        //     // Can detect double jump
-        // }); 
+        input.keys.forEach(element => {
+            // Can detect double jump
+            switch(element){
+                case 'ArrowLeftUP':
+                    // console.log(true);
+                    this.player.vx = -0.9;
+                    break;
+                case ' DOWN':
+                    console.log("double jump");
+                    this.player.vy -=30;
+                    this.player.setState(states.JUMPING_LEFT);
+                    break;
+            }
+            input.keys.shift();
+        }); 
         if(this.player.onGround()){
             if(Math.floor(Math.abs(this.player.vx)) === 0) this.player.setState(states.STANDING_LEFT);
             else this.player.setState(states.RUNNING_LEFT);
