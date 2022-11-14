@@ -39,9 +39,10 @@ export class StandingRight extends State{
             }
             input.keys.shift();
         }); 
+        this.player.vx *= 0.9;
     }
     enter(){
-        this.player.vx = 0;
+        // this.player.vx = 0;
         this.player.vy = 0;   
     }
 } 
@@ -66,9 +67,10 @@ export class StandingLeft extends State{
             }
             input.keys.shift();
         }); 
+        this.player.vx *= 0.9;
     }
     enter(){
-        this.player.vx = 0;
+        // this.player.vx = 0;
         this.player.vy = 0;   
     }
 } 
