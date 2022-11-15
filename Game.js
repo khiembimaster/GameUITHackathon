@@ -9,6 +9,9 @@ class Game{ // Game is a base class which store what a Game object needed
         this.ctx = ctx; // Context which stores 2d api for rendering
         this.width = width;     //Game object size_width
         this.height = height;   //Game object size_height
+        this.vx = 0;
+        this.vy = 0;
+        this.physics = new Physics();
     }
 }
 
@@ -17,13 +20,10 @@ export default class Player extends Game{
         super(ctx, 200, 181); // init base class
         //Components => differ from type of Game object
         //A Player would have access to inputs, graphics, physics, stateManger;
-        this.vx = 0;
-        this.vy = 0;
         this.weight = 1;
         this.x = WINDOW.WINDOW_WIDTH*0.5;
         this.y = WINDOW.WINDOW_HEIGHT - this.height - WINDOW.GROUND_HEIGHT;
         this.background = new ParallaxBackground(ctx);
-        this.physics = new Physics();
         this.states = [ 
                         new StandingRight(this),
                         new StandingLeft(this),
@@ -91,8 +91,8 @@ export default class Player extends Game{
     update(){
         this.background.updateAll(this);
         this.curState.handleInput(this.input);
+        if(this.onGround()) this.vy -= 1;
         this.physics.update(this);
-        
     }
     draw(){
         this.background.drawAll(this);

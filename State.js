@@ -119,6 +119,10 @@ export class FallingRight extends State{
                     // console.log(true);
                     this.player.vx = 0.9;
                     break;
+                case 'ArrowRightDOWN':
+                    // console.log(true);
+                    this.player.vx = 10;
+                    break
                 case ' DOWN':
                     if(this.doubleJump) {
                         this.player.vy -=30;
@@ -154,6 +158,10 @@ export class FallingLeft extends State{
                 case 'ArrowLeftUP':
                     // console.log(true);
                     this.player.vx = -0.9;
+                    break;
+                case 'ArrowLeftDOWN':
+                    // console.log(true);
+                    this.player.vx = -10;
                     break;
                 case ' DOWN':
                     if(this.doubleJump){
