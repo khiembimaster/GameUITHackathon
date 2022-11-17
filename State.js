@@ -40,6 +40,10 @@ export class StandingRight extends State{
             input.keys.shift();
         }); 
         this.player.vx *= 0.9;
+        if(!this.player.onGround()){
+            this.vy += 1*this.player.weight;
+            this.player.setState(states.FALLING_RIGHT);
+        }
     }
     enter(){
         // this.player.vx = 0;
@@ -68,6 +72,10 @@ export class StandingLeft extends State{
             input.keys.shift();
         }); 
         this.player.vx *= 0.9;
+        if(!this.player.onGround()){
+            this.vy += 1*this.player.weight;
+            this.player.setState(states.FALLING_LEFT);
+        }
     }
     enter(){
         // this.player.vx = 0;
@@ -206,7 +214,10 @@ export class RunningLeft extends State{
             }
             input.keys.shift();
         }); 
-        
+        if(!this.player.onGround()){
+            this.vy += 1*this.player.weight;
+            this.player.setState(states.FALLING_LEFT);
+        }
     }
     enter(){
         this.player.vx = -10;
@@ -234,6 +245,10 @@ export class RunningRight extends State{
             }
             input.keys.shift();
         }); 
+        if(!this.player.onGround()){
+            this.vy += 1*this.player.weight;
+            this.player.setState(states.FALLING_RIGHT);
+        }
     }
     enter(){
         this.player.vx = 10;

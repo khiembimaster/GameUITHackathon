@@ -1,5 +1,6 @@
 // 1 - Import packages
 import Player from './Game.js';
+import { Ground } from './Game.js';
 import {WINDOW} from './Constants.js';
 
 // import ParallaxBackground from './Background.js'
@@ -17,7 +18,10 @@ window.addEventListener('load', function(){
     canvas.height = WINDOW.WINDOW_HEIGHT;
 
     // 5 - Initialize variables
-    const player = new Player(ctx);
+    const world = [new Ground(ctx,0, WINDOW.WINDOW_HEIGHT - 100),
+                    new Ground(ctx,WINDOW.WINDOW_WIDTH*0.5, WINDOW.WINDOW_HEIGHT*0.5 )
+            ];
+    const player = new Player(ctx, world);
     function animate(){
         
         player.update();

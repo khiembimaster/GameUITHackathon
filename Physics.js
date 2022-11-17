@@ -4,9 +4,15 @@ export default class Physics{
 
     }
     update(game){
-        game.vy += 1;
-        game.y += game.vy;
+        game.vy += 1*game.weight;
+        // game.y += game.vy;
     }
-
-    
+    isCollide(a, b) {
+        return !(
+            ((a.y + a.height) < (b.y)) ||
+            (a.y > (b.y + b.height)) ||
+            ((a.x + a.width) < b.x) ||
+            (a.x > (b.x + b.width))
+        );
+    }   
 }

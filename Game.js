@@ -15,8 +15,29 @@ class Game{ // Game is a base class which store what a Game object needed
     }
 }
 
+export class Ground extends Game{
+    constructor(ctx, x, y){
+        super(ctx, WINDOW.WINDOW_WIDTH,WINDOW.GROUND_HEIGHT);
+        this.weight = 0;
+        this.x = x;
+        this.y = y ;
+    }
+    update(player){
+        this.x -= player.vx;
+        this.y -= player.vy;
+    }
+    draw(){
+        // console.log("draw");
+        this.ctx.fillStyle = "blue";
+        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+
+}
+
+
+
 export default class Player extends Game{
-    constructor(ctx){
+    constructor(ctx, world){
         super(ctx, 200, 181); // init base class
         //Components => differ from type of Game object
         //A Player would have access to inputs, graphics, physics, stateManger;
@@ -87,15 +108,29 @@ export default class Player extends Game{
                 frames : 7
             },
         ]);
+
+        this.world = world;
     }
     update(){
-        this.background.updateAll(this);
+
         this.curState.handleInput(this.input);
-        if(this.onGround()) this.vy -= 1;
+        // if(this.onGround()) 
         this.physics.update(this);
+
+        if(this.onGround()){
+            this.vy -= 1 * this.weight;
+        }
+        // console.log(this.vy);
+        this.world.forEach(element => {
+            element.update(this);
+        });
+        this.background.updateAll(this);
     }
     draw(){
         this.background.drawAll(this);
+        this.world.forEach(element => {
+            element.draw();
+        });
         this.graphic.draw(this);
     }
     setState(stateIndex){
@@ -103,9 +138,16 @@ export default class Player extends Game{
         this.curState.enter();
     }
     onGround(){
-        if(WINDOW.WINDOW_HEIGHT - WINDOW.GROUND_HEIGHT <= (this.y + this.height)){
-            return true;
-        }
-        else return false;
+        // if(WINDOW.WINDOW_HEIGHT - WINDOW.GROUND_HEIGHT <= (this.y + this.height)){
+        //     return true;
+        // }
+        let result = false;
+        this.world.forEach(element => {
+            if(this.physics.isCollide(this, element)) {
+                // console.log("onground");
+                result = true;
+            }
+        });
+        return result;
     }
 }
