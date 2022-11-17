@@ -37,7 +37,9 @@ export class StandingRight extends State{
                     this.player.setState(states.JUMPING_RIGHT);
                     break;
             }
-            input.keys.shift();
+            if(!element.includes('UP')){
+                input.keys.shift();
+            }
         }); 
         this.player.vx *= 0.9;
         if(!this.player.onGround()){
@@ -69,7 +71,9 @@ export class StandingLeft extends State{
                     this.player.setState(states.JUMPING_LEFT);
                     break;
             }
-            input.keys.shift();
+            if(!element.includes('UP')){
+                input.keys.shift();
+            }
         }); 
         this.player.vx *= 0.9;
         if(!this.player.onGround()){
@@ -140,7 +144,7 @@ export class FallingRight extends State{
                     break;
             }
             input.keys.shift();
-        }); 
+            }); 
         if(this.player.onGround()){
             this.doubleJump = true;
             if(Math.floor(this.player.vx) === 0) this.player.setState(states.STANDING_RIGHT);
@@ -179,7 +183,9 @@ export class FallingLeft extends State{
                     }
                     break;
             }
+     
             input.keys.shift();
+        
         }); 
         if(this.player.onGround()){
             this.doubleJump = true;
@@ -212,7 +218,9 @@ export class RunningLeft extends State{
                     this.player.setState(states.JUMPING_LEFT);
                     break;
             }
-            input.keys.shift();
+            if(!element.includes('UP')){
+                input.keys.shift();
+            }
         }); 
         if(!this.player.onGround()){
             this.vy += 1*this.player.weight;
@@ -243,7 +251,9 @@ export class RunningRight extends State{
                     this.player.setState(states.JUMPING_RIGHT);
                     break;
             }
-            input.keys.shift();
+            if(!element.includes('UP')){
+                input.keys.shift();
+            }
         }); 
         if(!this.player.onGround()){
             this.vy += 1*this.player.weight;

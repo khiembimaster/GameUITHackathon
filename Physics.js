@@ -11,7 +11,7 @@ export default class Physics{
         return !(
             ((a.y + a.height) < (b.y)) ||
             (a.y > (b.y + b.height)) ||
-            ((a.x + a.width) < b.x) ||
+            ((a.x + a.width*0.5) < b.x) ||
             (a.x > (b.x + b.width))
         );
     }   
