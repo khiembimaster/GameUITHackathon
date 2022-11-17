@@ -93,8 +93,35 @@ export class JumpingRight extends State{
         this.player = player;
     }
     handleInput(input){
+        input.keys.forEach(element => {    
+            switch(element){
+                case 'ArrowRightUP':
+                    // console.log(true);
+                    this.player.vx = 0.9;
+                    break;
+                case 'ArrowRightDOWN':
+                    // console.log(true);
+                    this.player.vx = 10;
+                    break;
+                case 'ArrowLeftDOWN':
+                    // console.log(true);
+                    this.player.vx = -10;
+                    this.player.setState(states.JUMPING_LEFT);
+                    break
+                case ' DOWN':
+                    if(this.doubleJump){
+                        this.doubleJump = false;
+                        this.player.vy -=30;
+                        this.player.setState(states.JUMPING_LEFT);
+                    }
+                    break;
+            }
+            input.keys.shift();
+        });
         if(this.player.vy > this.player.weight)
             this.player.setState(states.FALLING_RIGHT);
+
+        
     }
     enter(){
         // console.log(this.player.onGround());
@@ -109,8 +136,34 @@ export class JumpingLeft extends State{
         
     }
     handleInput(input){
+
+        input.keys.forEach(element => {
+            switch(element){
+                case 'ArrowLeftUP':
+                    // console.log(true);
+                    this.player.vx = -0.9;
+                    break;
+                case 'ArrowLeftDOWN':
+                    // console.log(true);
+                    this.player.vx = -10;
+                    break;
+                case 'ArrowRightDOWN':
+                    // console.log(true);
+                    this.player.vx = 10;
+                    this.player.setState(states.JUMPING_RIGHT);
+                    break
+                case ' DOWN':
+                    if(this.doubleJump){
+                        this.doubleJump = false;
+                        this.player.vy -=30;
+                        this.player.setState(states.JUMPING_LEFT);
+                    }
+                    break;
+            }
+        });
         if(this.player.vy > this.player.weight)
             this.player.setState(states.FALLING_LEFT);
+        input.keys.shift();
     }   
     enter(){
         // if(this.player.onGround())
